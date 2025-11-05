@@ -59,6 +59,29 @@ python -m inteleria.scraper download --output-dir saved_pages --hellhades-url ht
 python -m inteleria.scraper bulk --hellhades-url https://hellhades.com/raid/tier-list/ --inteleria-dir saved_pages
 ```
 
+### 1.2 一键初始化 / 更新数据库
+
+仓库提供了 `scripts/update_database.sh`，用于按照 HellHades 名单自动下载 Inteleria 英雄页面并写入数据库：
+
+```bash
+bash scripts/update_database.sh
+```
+
+默认会在项目根目录生成（或更新）`champions.db`，并将下载的 HTML 页面缓存在 `downloaded_pages/`。可通过环境变量进行定制：
+
+| 环境变量 | 说明 | 默认值 |
+| --- | --- | --- |
+| `HELLHADES_URL` | HellHades 名单地址 | `https://hellhades.com/raid/tier-list/` |
+| `CHAMPION_DB` | SQLite 数据库路径 | `champions.db` |
+| `INTELERIA_CACHE_DIR` | HTML 缓存目录 | `downloaded_pages` |
+| `LIMIT` | 限制导入的英雄数量（用于调试） | 空（全部导入） |
+
+示例：
+
+```bash
+HELLHADES_URL=https://hellhades.com/raid/tier-list/ CHAMPION_DB=data/my.db bash scripts/update_database.sh
+```
+
 ### 2. 运行战斗模拟
 
 ```bash
