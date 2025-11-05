@@ -11,6 +11,9 @@ PROJECT_ROOT=$(cd "${SCRIPT_DIR}/.." && pwd)
 
 cd "$PROJECT_ROOT"
 
+# Ensure the in-repo package is importable without requiring installation.
+export PYTHONPATH="${PROJECT_ROOT}/src:${PYTHONPATH:-}"
+
 CMD_DOWNLOAD=(python -m inteleria.scraper download --output-dir "$CACHE_DIR" --hellhades-url "$HH_URL")
 CMD_BULK=(python -m inteleria.scraper bulk --hellhades-url "$HH_URL" --inteleria-dir "$CACHE_DIR" --db "$DB_PATH")
 
